@@ -1,0 +1,234 @@
+/* ============================================================
+   PALETA DE CORES
+   Tudo que é cor no site vem daqui. Se quiser trocar o tema,
+   é só mexer nessas variáveis — o resto do CSS usa var(--nome).
+   ============================================================ */
+:root{
+  /* Base / estrutura */
+  --bg:      #0d1117;  /* fundo da página */
+  --panel:   #151b23;  /* fundo dos cards */
+  --panel-2: #1b2330;  /* inputs e blocos internos */
+  --line:    #263041;  /* bordas e divisórias */
+  --fg:      #e6edf3;  /* texto principal */
+  --dim:     #8b98a9;  /* texto secundário / labels */
+
+  /* Destaques */
+  --accent:    #e8873a; /* laranja — botões, números das estatísticas, foco */
+  --accent-2:  #4fb286; /* verde — pausa do pomodoro, streaks, meta batida */
+  --danger:    #e05561; /* vermelho — remover */
+  --on-accent: #1a1005; /* texto sobre fundo laranja */
+
+  /* Cores por categoria de estudo */
+  --cat-java:        #e8873a; /* laranja */
+  --cat-cs:           #4f8ff0; /* azul */
+  --cat-projeto:      #4fb286; /* verde */
+  --cat-transversal:  #c07ede; /* roxo claro */
+
+  /* Grid do fundo (mais sutil que as bordas) */
+  --grid-minor: rgba(139,152,169,0.06);
+  --grid-major: rgba(139,152,169,0.12);
+}
+
+/* ============================================================
+   RESET BÁSICO E TIPOGRAFIA
+   ============================================================ */
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+body{
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  position: relative;
+}
+
+.mono{ font-family:'JetBrains Mono', monospace; }
+
+/* Fundo em grid, FIXO na tela. Não faz parte do fluxo normal da
+   página — por isso ele não rola junto com o conteúdo. Só o que
+   está dentro de .wrap (título, cards, texto) se move ao rolar. */
+.bg-grid{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(var(--grid-minor) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(var(--grid-major) 1px, transparent 1px) 0 0 / 120px 120px,
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px) 0 0 / 120px 120px;
+}
+
+.wrap{
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+  position: relative;
+}
+
+/* ============================================================
+   CABEÇALHO (título block estilo prancheta técnica)
+   ============================================================ */
+.titleblock{
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  position: relative;
+}
+.corner{ position:absolute; width:14px; height:14px; }
+.corner.tl{ top:-1px; left:-1px; border-top:2px solid var(--accent); border-left:2px solid var(--accent); }
+.corner.tr{ top:-1px; right:-1px; border-top:2px solid var(--accent); border-right:2px solid var(--accent); }
+.corner.bl{ bottom:-1px; left:-1px; border-bottom:2px solid var(--accent); border-left:2px solid var(--accent); }
+.corner.br{ bottom:-1px; right:-1px; border-bottom:2px solid var(--accent); border-right:2px solid var(--accent); }
+
+.titleblock-top{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; }
+.titleblock h1{ font-size: 20px; font-weight:500; letter-spacing:0.02em; }
+.titleblock .rev{ font-size:11px; color:var(--dim); letter-spacing:0.08em; }
+
+.titleblock-meta{ display:flex; gap:24px; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); flex-wrap:wrap; }
+.meta-field{ font-size:11px; }
+.meta-field .label{ color:var(--dim); letter-spacing:0.08em; text-transform:uppercase; font-size:10px; display:block; margin-bottom:3px; }
+.meta-field .val{ font-size:13px; }
+.meta-field input[type=date]{
+  background:none; border:none; color:var(--fg); font-family:'JetBrains Mono',monospace; font-size:13px; padding:0;
+}
+
+/* ============================================================
+   CARDS DE ESTATÍSTICA
+   ============================================================ */
+.stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:24px; }
+.stat{ position:relative; background:var(--panel); border:1px solid var(--line); padding:16px; }
+.stat .num{ font-size:28px; font-weight:700; color:var(--accent); line-height:1; }
+.stat .lbl{ font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.06em; margin-top:8px; }
+
+/* ============================================================
+   LAYOUT GERAL DE SEÇÃO
+   ============================================================ */
+section{ margin-bottom: 28px; }
+.sheet-label{ font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+.sheet-label::after{ content:''; flex:1; height:1px; background:var(--line); }
+
+.panel{ background:var(--panel); border:1px solid var(--line); padding:20px; }
+
+/* ============================================================
+   FORMULÁRIOS / CAMPOS (usado no registro manual e nas metas)
+   ============================================================ */
+.log-form{ display:grid; grid-template-columns: 130px 1fr 90px 1fr auto; gap:10px; align-items:end; }
+.field label{ display:block; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:5px; }
+
+input, select{
+  width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--fg);
+  padding:8px 10px; font-family:'Inter',sans-serif; font-size:13px;
+}
+input:focus, select:focus{ outline:none; border-color:var(--accent); }
+
+button{
+  cursor:pointer; border:1px solid var(--accent); background:transparent; color:var(--accent);
+  padding:8px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em;
+  transition: background 0.15s, color 0.15s;
+}
+button:hover{ background:var(--accent); color:var(--on-accent); }
+button.ghost{ border-color:var(--line); color:var(--dim); padding:4px 8px; font-size:14px; }
+button.ghost:hover{ background:var(--danger); border-color:var(--danger); color:var(--fg); }
+
+/* ============================================================
+   CHECK-IN / CHECK-OUT (CRONÔMETRO / POMODORO)
+   ============================================================ */
+.timer-panel{ display:grid; grid-template-columns: 1fr 1fr auto; gap:14px; align-items:end; }
+.timer-modes{ display:flex; gap:6px; }
+.timer-modes button{ flex:1; padding:7px 10px; font-size:11px; }
+.timer-modes button.active{ background:var(--accent); color:var(--on-accent); }
+
+.timer-display-wrap{
+  grid-column: 1 / -1; display:flex; align-items:center; justify-content:space-between;
+  gap:16px; margin-top:4px; padding-top:16px; border-top:1px solid var(--line);
+}
+.timer-display{ font-size:40px; font-weight:700; color:var(--accent); letter-spacing:0.02em; }
+.timer-phase{ font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:4px; }
+.timer-phase.brk{ color:var(--accent-2); } /* fase de pausa do pomodoro fica verde */
+
+.timer-actions{ display:flex; gap:8px; }
+.timer-actions button.stop{ border-color:var(--danger); color:var(--danger); }
+.timer-actions button.stop:hover{ background:var(--danger); color:var(--fg); }
+
+.timer-idle-hint{ font-size:11px; color:var(--dim); grid-column: 1/-1; }
+
+/* ============================================================
+   BARRAS DA SEMANA (uma por categoria)
+   ============================================================ */
+.bar-row{ display:grid; grid-template-columns: 100px 1fr 90px; gap:12px; align-items:center; margin-bottom:12px; font-size:12px; }
+.bar-row:last-child{ margin-bottom:0; }
+.bar-row .catname{ font-weight:600; }
+.bar-track{ height:16px; background:var(--panel-2); border:1px solid var(--line); position:relative; overflow:hidden; }
+.bar-fill{ height:100%; transition: width 0.4s ease; }
+.bar-fill.over{ background: var(--accent-2) !important; } /* meta batida = verde */
+.bar-val{ text-align:right; color:var(--dim); }
+
+/* Uma cor de categoria por linha — aplicada via classe no JS */
+.bar-row.cat-java .catname{ color: var(--cat-java); }
+.bar-row.cat-cs .catname{ color: var(--cat-cs); }
+.bar-row.cat-projeto .catname{ color: var(--cat-projeto); }
+.bar-row.cat-transversal .catname{ color: var(--cat-transversal); }
+.bar-row.cat-java .bar-fill{ background: color-mix(in srgb, var(--cat-java) 45%, transparent); }
+.bar-row.cat-cs .bar-fill{ background: color-mix(in srgb, var(--cat-cs) 45%, transparent); }
+.bar-row.cat-projeto .bar-fill{ background: color-mix(in srgb, var(--cat-projeto) 45%, transparent); }
+.bar-row.cat-transversal .bar-fill{ background: color-mix(in srgb, var(--cat-transversal) 45%, transparent); }
+
+/* ============================================================
+   METAS DIÁRIAS DE HÁBITO
+   ============================================================ */
+.goal-add{ display:grid; grid-template-columns: 1fr 100px auto; gap:10px; margin-bottom:16px; padding-bottom:16px; border-bottom:1px solid var(--line); align-items:end; }
+.goal-row{ display:grid; grid-template-columns: 1fr 110px 90px 24px; gap:10px; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); font-size:12.5px; }
+.goal-row:last-child{ border-bottom:none; }
+.goal-row.met .glabel{ color:var(--dim); }
+.goal-row .glabel{ display:flex; align-items:center; gap:8px; }
+.goal-row .gdot{ width:8px; height:8px; border-radius:50%; background:var(--line); flex-shrink:0; }
+.goal-row.met .gdot{ background:var(--accent-2); }
+.goal-row input[type=number]{ padding:6px 8px; font-size:12px; }
+.goal-streak{ text-align:right; color:var(--dim); font-family:'JetBrains Mono',monospace; font-size:11px; }
+
+/* ============================================================
+   TRIMESTRES / MARCOS
+   ============================================================ */
+.quarters{ display:grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap:14px; }
+.quarter{ background:var(--panel); border:1px solid var(--line); padding:18px; position:relative; }
+.quarter-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.quarter-head h3{ font-size:13px; font-weight:600; letter-spacing:0.03em; }
+.quarter-head .months{ font-size:10px; color:var(--dim); font-family:'JetBrains Mono',monospace; }
+.qprogress{ font-size:10px; color:var(--dim); margin-bottom:10px; font-family:'JetBrains Mono',monospace; }
+
+.milestone{ display:flex; align-items:flex-start; gap:9px; padding:6px 0; font-size:12.5px; cursor:pointer; }
+.milestone input{ width:auto; margin-top:2px; accent-color: var(--accent-2); }
+.milestone .txt{ transition: color 0.15s; }
+.milestone.done .txt{ color: var(--dim); text-decoration: line-through; text-decoration-color: var(--accent-2); }
+
+/* ============================================================
+   HISTÓRICO
+   ============================================================ */
+.history{ max-height: 320px; overflow-y:auto; }
+.entry{ display:grid; grid-template-columns: 90px 100px 60px 1fr 24px; gap:10px; align-items:center; padding:8px 0; border-bottom:1px solid var(--line); font-size:12px; }
+.entry:last-child{ border-bottom:none; }
+.entry .date{ color:var(--dim); font-family:'JetBrains Mono',monospace; }
+.entry .cat{ font-weight:600; }
+.entry .cat.cat-java{ color: var(--cat-java); }
+.entry .cat.cat-cs{ color: var(--cat-cs); }
+.entry .cat.cat-projeto{ color: var(--cat-projeto); }
+.entry .cat.cat-transversal{ color: var(--cat-transversal); }
+.entry .hrs{ font-family:'JetBrains Mono',monospace; text-align:right; }
+.entry .note{ color:var(--dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.empty{ color:var(--dim); font-size:12px; padding:16px 0; text-align:center; }
+
+/* ============================================================
+   RODAPÉ
+   ============================================================ */
+footer{ text-align:center; font-size:10px; color:var(--dim); margin-top:40px; letter-spacing:0.08em; }
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width: 640px){
+  .log-form{ grid-template-columns: 1fr 1fr; }
+  .timer-panel{ grid-template-columns: 1fr; }
+  .entry{ grid-template-columns: 70px 1fr 40px 20px; }
+  .entry .note{ display:none; }
+}

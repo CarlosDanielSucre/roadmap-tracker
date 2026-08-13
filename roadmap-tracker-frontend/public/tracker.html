@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap — Backend Java Specialist</title>
+
+<!-- Fontes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Todo o visual mora aqui -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Camada de fundo fixa (o grid de linhas). Fica parada, quem rola é o conteúdo. -->
+<div class="bg-grid" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <!-- ===================== CABEÇALHO (título + data de início) ===================== -->
+  <div class="titleblock">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <div class="titleblock-top">
+      <h1>Roadmap — Backend Java Specialist</h1>
+      <span class="rev mono">ANO 01 · REV 1.0</span>
+    </div>
+    <div class="titleblock-meta">
+      <div class="meta-field">
+        <span class="label">Início</span>
+        <input type="date" id="startDate" class="mono">
+      </div>
+      <div class="meta-field">
+        <span class="label">Meta diária</span>
+        <span class="val mono">5h / dia · 6x semana</span>
+      </div>
+      <div class="meta-field">
+        <span class="label">Foco</span>
+        <span class="val mono">Java · CS · Projeto · Transversal</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ESTATÍSTICAS RÁPIDAS ===================== -->
+  <div class="stats">
+    <div class="stat"><div class="num mono" id="statStreak">0</div><div class="lbl">Sequência (dias)</div></div>
+    <div class="stat"><div class="num mono" id="statHours">0</div><div class="lbl">Horas totais</div></div>
+    <div class="stat"><div class="num mono" id="statWeek">0h</div><div class="lbl">Essa semana</div></div>
+    <div class="stat"><div class="num mono" id="statYear">0%</div><div class="lbl">Do ano (312 dias úteis)</div></div>
+  </div>
+
+  <!-- ===================== REGISTRO MANUAL DE SESSÃO ===================== -->
+  <section>
+    <div class="sheet-label">Registrar sessão</div>
+    <div class="panel">
+      <div class="log-form">
+        <div class="field"><label>Data</label><input type="date" id="entryDate"></div>
+        <div class="field"><label>Categoria</label>
+          <select id="entryCat">
+            <option value="Java">Java</option>
+            <option value="CS">CS</option>
+            <option value="Projeto">Projeto</option>
+            <option value="Transversal">Transversal</option>
+          </select>
+        </div>
+        <div class="field"><label>Horas</label><input type="number" id="entryHours" step="0.25" min="0" placeholder="1.5"></div>
+        <div class="field"><label>Nota (opcional)</label><input type="text" id="entryNote" placeholder="ex: streams + collectors"></div>
+        <button id="addEntry">Adicionar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CHECK-IN / CHECK-OUT (CRONÔMETRO / POMODORO) ===================== -->
+  <section>
+    <div class="sheet-label">Check-in / check-out</div>
+    <div class="panel timer-panel">
+      <div class="field"><label>Tarefa</label><input type="text" id="timerNote" placeholder="ex: herança e polimorfismo"></div>
+      <div class="field"><label>Categoria</label>
+        <select id="timerCat">
+          <option value="Java">Java</option>
+          <option value="CS">CS</option>
+          <option value="Projeto">Projeto</option>
+          <option value="Transversal">Transversal</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Modo</label>
+        <div class="timer-modes">
+          <button type="button" id="modeFree" class="active">Livre</button>
+          <button type="button" id="modePomo">Pomodoro 25/5</button>
+        </div>
+      </div>
+      <div class="timer-display-wrap">
+        <div>
+          <div class="timer-display mono" id="timerDisplay">00:00</div>
+          <div class="timer-phase" id="timerPhase">Parado</div>
+        </div>
+        <div class="timer-actions">
+          <button id="timerStart">Check-in</button>
+          <button id="timerStop" class="stop" disabled>Check-out</button>
+        </div>
+      </div>
+      <div class="timer-idle-hint">No modo Pomodoro, o tempo de pausa não entra na hora registrada — só o foco conta.</div>
+    </div>
+  </section>
+
+  <!-- ===================== BARRAS DA SEMANA ===================== -->
+  <section>
+    <div class="sheet-label">Semana atual vs meta</div>
+    <div class="panel" id="weekBars"></div>
+  </section>
+
+  <!-- ===================== METAS DIÁRIAS DE HÁBITO ===================== -->
+  <section>
+    <div class="sheet-label">Metas diárias</div>
+    <div class="panel">
+      <div class="goal-add">
+        <div class="field"><label>Nova meta</label><input type="text" id="goalLabel" placeholder="ex: leitura técnica"></div>
+        <div class="field"><label>Min/dia</label><input type="number" id="goalTarget" min="1" placeholder="15"></div>
+        <button id="addGoal">Adicionar</button>
+      </div>
+      <div id="goalsList"></div>
+    </div>
+  </section>
+
+  <!-- ===================== MARCOS POR TRIMESTRE ===================== -->
+  <section>
+    <div class="sheet-label">Trimestres — marcos</div>
+    <div class="quarters" id="quarters"></div>
+  </section>
+
+  <!-- ===================== HISTÓRICO DE SESSÕES ===================== -->
+  <section>
+    <div class="sheet-label">Histórico</div>
+    <div class="panel history" id="history"></div>
+  </section>
+
+  <footer>PLANO — 1 ANO · ESCALA 1:1 · SEM PULAR O EIXO TRANSVERSAL</footer>
+</div>
+
+<!-- Toda a lógica (estado, cálculos, eventos) mora aqui -->
+<script src="js/app.js"></script>
+</body>
+</html>
