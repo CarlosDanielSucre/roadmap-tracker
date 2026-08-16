@@ -1,6 +1,7 @@
 /* ============================================================
    CONSTANTES / DADOS FIXOS DO PLANO
    ============================================================ */
+const url = "http://localhost:8080/";
 const CATS = ['Java', 'CS', 'Projeto', 'Transversal'];
 
 // classe CSS por categoria (usada pra colorir barras e histórico)
@@ -54,7 +55,7 @@ const DEFAULT_GOALS = [
    Cada uma dessas variáveis é lida do storage no início (loadState)
    e salva de volta sempre que muda.
    ============================================================ */
-let entries = [];        // sessões registradas: { id, date, category, hours, note }
+let entries = []; // sessões registradas: { id, date, category, hours, note }     
 let milestones = {};     // marcos marcados: { q1: [true,false,...], ... }
 let startDate = null;    // data de início do plano (string 'YYYY-MM-DD')
 let storageOk = true;    // fica false se o storage falhar (aviso silencioso)
@@ -80,8 +81,8 @@ const todayStr = () => new Date().toISOString().slice(0, 10);
    ============================================================ */
 async function loadState() {
   try {
-    const e = await window.storage.get('log-entries');
-    entries = e ? JSON.parse(e.value) : [];
+    const response = await fetch(url + "entries");
+    entries = await response.json();
   } catch { entries = []; }
 
   try {
@@ -110,8 +111,22 @@ async function loadState() {
 }
 
 async function saveEntries() {
-  try { await window.storage.set('log-entries', JSON.stringify(entries)); }
-  catch { storageOk = false; }
+  try { 
+    await window.storage.set('log-entries', JSON.stringify(entries));
+  } catch { 
+    storageOk = false; 
+  }
+}
+async function saveNewEntry(newEntry) {
+  try { 
+    await fetch(url + "entries", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newEntry)
+  });
+  } catch { 
+    storageOk = false; 
+  }
 }
 async function saveMilestones() {
   try { await window.storage.set('milestones-state', JSON.stringify(milestones)); }
@@ -333,10 +348,10 @@ document.getElementById('addEntry').addEventListener('click', async () => {
   if (!hours || hours <= 0) return;
 
   entries.push({ id: Date.now(), date, category, hours, note });
-  await saveEntries();
+  const newEntry = {date, category, hours, note};
+  await saveNewEntry(newEntry);
+  await loadState();
 
-  document.getElementById('entryHours').value = '';
-  document.getElementById('entryNote').value = '';
   render();
 });
 
