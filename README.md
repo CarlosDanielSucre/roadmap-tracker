@@ -1,6 +1,6 @@
 ## Roadmap tracker
 
-Roadmap tracker is a web app made for people like me who like to rack their study path.
+Roadmap tracker is a web app made for people like me who like to track their study path.
 
 This first release is focused on my studies in Java and Spring Boot.
 
