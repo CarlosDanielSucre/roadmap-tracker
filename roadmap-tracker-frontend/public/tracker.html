@@ -1,146 +1,144 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roadmap — Backend Java Specialist</title>
-
-<!-- Fontes -->
+<title>Roadmap Tracker — Backend Java Specialist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-<!-- Todo o visual mora aqui -->
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- Camada de fundo fixa (o grid de linhas). Fica parada, quem rola é o conteúdo. -->
 <div class="bg-grid" aria-hidden="true"></div>
 
 <div class="wrap">
 
-  <!-- ===================== CABEÇALHO (título + data de início) ===================== -->
+  <!-- ===================== HEADER ===================== -->
   <div class="titleblock">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <div class="titleblock-top">
       <h1>Roadmap — Backend Java Specialist</h1>
-      <span class="rev mono">ANO 01 · REV 1.0</span>
+      <span class="rev mono">YEAR 01 · REV 2.0</span>
     </div>
     <div class="titleblock-meta">
       <div class="meta-field">
-        <span class="label">Início</span>
+        <span class="label">Start date</span>
         <input type="date" id="startDate" class="mono">
       </div>
       <div class="meta-field">
-        <span class="label">Meta diária</span>
-        <span class="val mono">5h / dia · 6x semana</span>
+        <span class="label">Daily target</span>
+        <span class="val mono">5h / day · 6x week</span>
       </div>
       <div class="meta-field">
-        <span class="label">Foco</span>
-        <span class="val mono">Java · CS · Projeto · Transversal</span>
+        <span class="label">Focus</span>
+        <span class="val mono">Java · CS · Project · Cross-cutting</span>
       </div>
     </div>
   </div>
 
-  <!-- ===================== ESTATÍSTICAS RÁPIDAS ===================== -->
+  <!-- ===================== QUICK STATS ===================== -->
   <div class="stats">
-    <div class="stat"><div class="num mono" id="statStreak">0</div><div class="lbl">Sequência (dias)</div></div>
-    <div class="stat"><div class="num mono" id="statHours">0</div><div class="lbl">Horas totais</div></div>
-    <div class="stat"><div class="num mono" id="statWeek">0h</div><div class="lbl">Essa semana</div></div>
-    <div class="stat"><div class="num mono" id="statYear">0%</div><div class="lbl">Do ano (312 dias úteis)</div></div>
+    <div class="stat"><div class="num mono" id="statStreak">0</div><div class="lbl">Streak (days)</div></div>
+    <div class="stat"><div class="num mono" id="statHours">0</div><div class="lbl">Total hours</div></div>
+    <div class="stat"><div class="num mono" id="statWeek">0h</div><div class="lbl">This week</div></div>
+    <div class="stat"><div class="num mono" id="statYear">0%</div><div class="lbl">Of the year (312 working days)</div></div>
   </div>
 
-  <!-- ===================== REGISTRO MANUAL DE SESSÃO ===================== -->
+  <!-- ===================== MANUAL SESSION LOGGING ===================== -->
   <section>
-    <div class="sheet-label">Registrar sessão</div>
+    <div class="sheet-label">Log session</div>
     <div class="panel">
       <div class="log-form">
-        <div class="field"><label>Data</label><input type="date" id="entryDate"></div>
-        <div class="field"><label>Categoria</label>
+        <div class="field"><label>Date</label><input type="date" id="entryDate"></div>
+        <div class="field"><label>Category</label>
           <select id="entryCat">
             <option value="Java">Java</option>
             <option value="CS">CS</option>
-            <option value="Projeto">Projeto</option>
-            <option value="Transversal">Transversal</option>
+            <option value="Project">Project</option>
+            <option value="Cross-cutting">Cross-cutting</option>
           </select>
         </div>
-        <div class="field"><label>Horas</label><input type="number" id="entryHours" step="0.25" min="0" placeholder="1.5"></div>
-        <div class="field"><label>Nota (opcional)</label><input type="text" id="entryNote" placeholder="ex: streams + collectors"></div>
-        <button id="addEntry">Adicionar</button>
+        <div class="field"><label>Hours</label><input type="number" id="entryHours" step="0.25" min="0" placeholder="1.5"></div>
+        <div class="field"><label>Note (optional)</label><input type="text" id="entryNote" placeholder="e.g. streams + collectors"></div>
+        <button id="addEntry">Add</button>
       </div>
     </div>
   </section>
 
-  <!-- ===================== CHECK-IN / CHECK-OUT (CRONÔMETRO / POMODORO) ===================== -->
+  <!-- ===================== CHECK-IN / CHECK-OUT ===================== -->
   <section>
     <div class="sheet-label">Check-in / check-out</div>
     <div class="panel timer-panel">
-      <div class="field"><label>Tarefa</label><input type="text" id="timerNote" placeholder="ex: herança e polimorfismo"></div>
-      <div class="field"><label>Categoria</label>
+      <div class="field"><label>Task</label><input type="text" id="timerNote" placeholder="e.g. inheritance and polymorphism"></div>
+      <div class="field"><label>Category</label>
         <select id="timerCat">
           <option value="Java">Java</option>
           <option value="CS">CS</option>
-          <option value="Projeto">Projeto</option>
-          <option value="Transversal">Transversal</option>
+          <option value="Project">Project</option>
+          <option value="Cross-cutting">Cross-cutting</option>
         </select>
       </div>
       <div class="field">
-        <label>Modo</label>
+        <label>Mode</label>
         <div class="timer-modes">
-          <button type="button" id="modeFree" class="active">Livre</button>
+          <button type="button" id="modeFree" class="active">Free</button>
           <button type="button" id="modePomo">Pomodoro 25/5</button>
         </div>
       </div>
       <div class="timer-display-wrap">
         <div>
           <div class="timer-display mono" id="timerDisplay">00:00</div>
-          <div class="timer-phase" id="timerPhase">Parado</div>
+          <div class="timer-phase" id="timerPhase">Stopped</div>
         </div>
         <div class="timer-actions">
           <button id="timerStart">Check-in</button>
           <button id="timerStop" class="stop" disabled>Check-out</button>
         </div>
       </div>
-      <div class="timer-idle-hint">No modo Pomodoro, o tempo de pausa não entra na hora registrada — só o foco conta.</div>
+      <div class="timer-idle-hint">In Pomodoro mode, break time doesn't count toward logged hours — only focus time does.</div>
     </div>
   </section>
 
-  <!-- ===================== BARRAS DA SEMANA ===================== -->
+  <!-- ===================== WEEKLY BARS ===================== -->
   <section>
-    <div class="sheet-label">Semana atual vs meta</div>
+    <div class="sheet-label">This week vs target</div>
     <div class="panel" id="weekBars"></div>
   </section>
 
-  <!-- ===================== METAS DIÁRIAS DE HÁBITO ===================== -->
+  <!-- ===================== DAILY HABIT GOALS ===================== -->
   <section>
-    <div class="sheet-label">Metas diárias</div>
+    <div class="sheet-label">Daily goals</div>
     <div class="panel">
       <div class="goal-add">
-        <div class="field"><label>Nova meta</label><input type="text" id="goalLabel" placeholder="ex: leitura técnica"></div>
-        <div class="field"><label>Min/dia</label><input type="number" id="goalTarget" min="1" placeholder="15"></div>
-        <button id="addGoal">Adicionar</button>
+        <div class="field"><label>New goal</label><input type="text" id="goalLabel" placeholder="e.g. technical reading"></div>
+        <div class="field"><label>Min/day</label><input type="number" id="goalTarget" min="1" placeholder="15"></div>
+        <button id="addGoal">Add</button>
       </div>
       <div id="goalsList"></div>
     </div>
   </section>
 
-  <!-- ===================== MARCOS POR TRIMESTRE ===================== -->
+  <!-- ===================== QUARTERLY MILESTONES ===================== -->
   <section>
-    <div class="sheet-label">Trimestres — marcos</div>
+    <div class="sheet-label">Quarters — milestones</div>
     <div class="quarters" id="quarters"></div>
   </section>
 
-  <!-- ===================== HISTÓRICO DE SESSÕES ===================== -->
+  <!-- ===================== SESSION HISTORY ===================== -->
   <section>
-    <div class="sheet-label">Histórico</div>
+    <div class="sheet-label">History</div>
     <div class="panel history" id="history"></div>
   </section>
 
-  <footer>PLANO — 1 ANO · ESCALA 1:1 · SEM PULAR O EIXO TRANSVERSAL</footer>
+  <footer>1-YEAR PLAN · SCALE 1:1 · NEVER SKIP THE CROSS-CUTTING AXIS</footer>
 </div>
 
-<!-- Toda a lógica (estado, cálculos, eventos) mora aqui -->
-<script src="js/app.js"></script>
+<!-- type="module" is required: app.js and its imports use ES module
+     import/export syntax, which the browser only allows in modules.
+     This also means the page must be served over http:// (Live
+     Server, etc.) — it will not work opened directly as a file:// URL. -->
+<script type="module" src="js/app.js"></script>
 </body>
 </html>
