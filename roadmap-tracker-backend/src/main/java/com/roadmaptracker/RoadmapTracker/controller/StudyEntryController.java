@@ -9,8 +9,10 @@ import java.util.Optional;
 
 
 @RestController
-@CrossOrigin(origins = "https://carlossucredev.github.io")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {
+    "https://carlossucredev.github.io",
+    "http://127.0.0.1:5500"
+})
 public class StudyEntryController {
 
     private final StudyEntryRepository repository;
