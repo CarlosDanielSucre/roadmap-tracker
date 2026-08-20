@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = {
+    "https://carlosdanielsucre.github.io",
+    "http://127.0.0.1:5500"
+})
 public class HabitLogController {
     private final HabitLogRepository repository;
 
