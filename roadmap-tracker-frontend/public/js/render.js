@@ -118,23 +118,23 @@ function renderWeekBars() {
 
 function renderGoals() {
   const goalsEl = document.getElementById('goalsList');
-  const uniqueLabels = [...new Set(state.habitLogs.map(h => h.label))];
+  const goals = state.habitLogs;
 
-  if (uniqueLabels.length === 0) {
+  if (goals.length === 0) {
     goalsEl.innerHTML = '<div class="empty">No goals yet.</div>';
     return;
   }
 
-  goalsEl.innerHTML = uniqueLabels.map(label => {
-    const done = todayMinutesFor(label);
-    const target = targetMinutesFor(label);
+  goalsEl.innerHTML = goals.map(goal => {
+    const done = todayMinutesFor(goal.label);
+    const target = targetMinutesFor(goal.label);
     const met = target > 0 && done >= target;
-    const streak = habitStreak(label);
+    const streak = habitStreak(goal.label);
     return `<div class="goal-row ${met ? 'met' : ''}">
-      <div class="glabel"><span class="gdot"></span>${label} <span class="mono" style="color:var(--dim);font-size:11px">(${target}min/day)</span></div>
-      <input type="number" min="0" class="mono goal-input" data-label="${label}" value="${done || ''}" placeholder="0">
+      <div class="glabel"><span class="gdot"></span>${goal.label} <span class="mono" style="color:var(--dim);font-size:11px">(${target}min/day)</span></div>
+      <input type="number" min="0" class="mono goal-input" data-label="${goal.label}" value="${done || ''}" placeholder="0">
       <div class="goal-streak">${streak}d streak</div>
-      <button class="ghost" data-goal-del="${label}" title="Remove today's log">×</button>
+      <button class="ghost" data-goal-del="${goal.label}" title="Remove today's log">×</button>
     </div>`;
   }).join('');
 

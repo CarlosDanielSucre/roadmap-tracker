@@ -25,7 +25,7 @@ export const state = {
 /* ============================================================
    FIXED / CONSTANT DATA
    ============================================================ */
-export const API_URL = "http://localhost:8080/";
+export const API_URL = "https://roadmap-tracker-ewpo.onrender.com/";
 
 // internal category keys — used as values in <select>, in the
 // database, and as object keys everywhere else in the app
